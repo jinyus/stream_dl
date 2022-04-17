@@ -8,7 +8,6 @@ import sys
 
 def download(url, filename):
     command = f'yt-dlp -o "{filename}" "{url}"'
-    print(f'command : {command}')
     os.system(command)
 
 
@@ -34,9 +33,9 @@ if __name__ == "__main__":
 
         attempt += 1
         filename = f'{file_stem}_{attempt}{file_ext}'
+
         for i in range(1, 6):
 
-            print(
-                f'download finished, restarting in {i}')
+            print(f'download finished, restarting in {i}')
 
             time.sleep(1)
