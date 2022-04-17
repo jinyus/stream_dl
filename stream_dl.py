@@ -1,9 +1,8 @@
 import os
-from argparse import ArgumentParser, REMAINDER
+from argparse import ArgumentParser
 from datetime import datetime
 import time
 from pathlib import Path
-import sys
 
 
 def download(url, filename):
