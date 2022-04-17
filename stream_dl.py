@@ -16,7 +16,13 @@ if __name__ == "__main__":
 
     args, unknownargs = parser.parse_known_args()
 
+    if len(unknownargs) == 0:
+        quit('No url provided')
+
     rest = ' '.join(unknownargs).strip()
+
+    if not rest.startswith('http'):
+        quit(f'invalid url: "{rest}"')
 
     filename = args.output.strip() if args.output else str(datetime.now()) + ".mp4"
 
