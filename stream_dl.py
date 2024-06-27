@@ -1,7 +1,7 @@
 import os
+import time
 from argparse import ArgumentParser
 from datetime import datetime
-import time
 from pathlib import Path
 
 
@@ -11,17 +11,17 @@ def download(url, filename):
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser(description='Stream video downloader')
-    parser.add_argument('--output', '-o', help='output filename')
+    parser = ArgumentParser(description="Stream video downloader")
+    parser.add_argument("--output", "-o", help="output filename")
 
     args, unknownargs = parser.parse_known_args()
 
     if len(unknownargs) == 0:
-        quit('No url provided')
+        quit("No url provided")
 
-    rest = ' '.join(unknownargs).strip()
+    rest = " ".join(unknownargs).strip()
 
-    if not rest.startswith('http'):
+    if not rest.startswith("http"):
         quit(f'invalid url: "{rest}"')
 
     filename = args.output.strip() if args.output else str(datetime.now()) + ".mp4"
@@ -34,13 +34,14 @@ if __name__ == "__main__":
     attempt = 1
 
     while True:
-        download(rest, filename)
+        if not filepath.exists():
+            download(rest, filename)
 
         attempt += 1
-        filename = f'{file_stem}_{attempt}{file_ext}'
+        filename = f"{file_stem}_{attempt}{file_ext}"
 
         for i in range(1, 6):
 
-            print(f'download finished, restarting in {i}')
+            print(f"download finished, restarting in {i}")
 
-            time.sleep(1)
+            time.sleep(1 if filepath.exists() else 0)
